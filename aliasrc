@@ -1,0 +1,27 @@
+alias -g G='| grep -i' # Example: ls -l G spring
+alias pg="ping www.google.com"
+alias pb="ping www.baidu.com"
+# Kill Process by Port
+# lsof -P | grep ':PortNumber' | awk '{print $2}' | xargs kill -9
+
+# Kill Process by PID
+# ps -aux & kill -s 9 PID
+
+# HTTP Proxy
+alias ehp="export http_proxy='http://localhost:8010'"
+alias whichp="curl cip.cc"
+alias uhp="unset http_proxy"
+
+# Git
+alias gst="git status"
+alias gcm="git commit -m"
+alias gl="git log --oneline --decorate --color"
+alias gh="git log --all --graph --decorate --oneline"
+
+# Node
+alias nfresh="rm -rf node_modules/ package-lock.json && npm install"
+
+# Docker
+alias drds="docker run -d --name iredis -p 6379:6379 redis"
+alias dms5="docker run --name imysql5.7 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:5.7"
+alias dms8="docker run --name imysql8 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:8"
