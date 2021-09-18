@@ -1,5 +1,3 @@
-echo "Greetings Luca. Welcome to zsh!"
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -15,12 +13,21 @@ DISABLE_UPDATE_PROMPT="true"
 ####################################################################
 # ZSH THEMES
 ####################################################################
-ZSH_THEME="awesomepanda"
+# ZSH_THEME="awesomepanda"
+ZSH_THEME="agnoster"
+# ZSH_THEME="Avit"
 
 ####################################################################
 # Zsh Plugins 
 ####################################################################
-plugins=(git history jsontools)
+plugins=(
+  git 
+  history 
+  jsontools 
+  
+  zsh-syntax-highlighting 
+  zsh-autosuggestions 
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -28,7 +35,9 @@ source $ZSH/oh-my-zsh.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+# export PS1='[\u@dev \W]\$ '
+export DEV="$HOME/dev"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -36,6 +45,15 @@ source $ZSH/oh-my-zsh.sh
 # Load nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# GO envs
+export GOROOT=/usr/local/go
+export GOPATH=$DEV/golang
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+export GO111MODULE=on 
+export GOPROXY=https://goproxy.cn,direct 
+export GOPRIVATE=
+export GOSUMDB=off
 
 ####################################################################
 # Aliases 
@@ -51,9 +69,9 @@ alias pb="ping www.baidu.com"
 # ps -aux & kill -s 9 PID
 
 # HTTP Proxy
-alias ehp="export http_proxy='http://localhost:8010'"
+alias ehp="export http_proxy='http://localhost:8010' && curl cip.cc"
 alias whichp="curl cip.cc"
-alias uhp="unset http_proxy"
+alias uhp="unset http_proxy && curl cip.cc"
 
 # Git
 alias gst="git status"
@@ -93,3 +111,13 @@ extract () {
         echo "'$1' is not a valid file!"
     fi
 }
+
+function mkcd() {
+    mkdir $1 && cd $1
+}
+
+##################
+# Greeting Idioms
+##################
+python3 idioms.py | parrotsay
+
