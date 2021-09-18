@@ -1,7 +1,7 @@
 ####################################################################
 # Greetings 
 ####################################################################
-python3 idioms.py
+python3 $HOME/idioms.py
 
 
 ####################################################################
@@ -14,6 +14,8 @@ export LANG=en_US.UTF-8
 # export PS1='[\u@dev \W]\$ '
 # export MANPATH="/usr/local/man:$MANPATH"
 export DEV="$HOME/dev"
+export HISTSIZE=5000
+export HISTFILESIZE=10000
 
 # Enable smart completion
 autoload -U compinit
@@ -72,6 +74,9 @@ export GOSUMDB=off
 alias -g G='| grep -i' # Example: ls -l G spring
 alias pg="ping www.google.com"
 alias pb="ping www.baidu.com"
+alias l="ls" # List files in current directory
+alias ll="ls -al" # List all files in current directory in long list format
+alias o="open ." # Open the current directory in Finder
 # lsof -P | grep ':PortNumber' | awk '{print $2}' | xargs kill -9 # Kill Process by Port
 # ps -aux & kill -s 9 PID # Kill Process by PID
 
@@ -88,6 +93,11 @@ alias gh="git log --all --graph --decorate --oneline"
 
 # Node
 alias nfresh="rm -rf node_modules/ package-lock.json && npm install"
+alias ns='npm start'
+alias start='npm start'
+alias nr='npm run'
+alias run='npm run'
+alias nis='npm i -S'
 
 # Docker
 alias dms5="docker run --name imysql5.7 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:5.7"
