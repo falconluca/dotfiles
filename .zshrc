@@ -1,7 +1,9 @@
 ####################################################################
 # Greetings 
 ####################################################################
+cat $HOME/banner.txt
 python3 $HOME/idioms.py
+echo "\n"
 
 
 ####################################################################
@@ -14,8 +16,6 @@ export LANG=en_US.UTF-8
 # export PS1='[\u@dev \W]\$ '
 # export MANPATH="/usr/local/man:$MANPATH"
 export DEV="$HOME/dev"
-export HISTSIZE=5000
-export HISTFILESIZE=10000
 
 # Enable smart completion
 autoload -U compinit
@@ -74,9 +74,6 @@ export GOSUMDB=off
 alias -g G='| grep -i' # Example: ls -l G spring
 alias pg="ping www.google.com"
 alias pb="ping www.baidu.com"
-alias l="ls" # List files in current directory
-alias ll="ls -al" # List all files in current directory in long list format
-alias o="open ." # Open the current directory in Finder
 # lsof -P | grep ':PortNumber' | awk '{print $2}' | xargs kill -9 # Kill Process by Port
 # ps -aux & kill -s 9 PID # Kill Process by PID
 
@@ -86,23 +83,31 @@ alias whichp="curl cip.cc"
 alias uhp="unset http_proxy && curl cip.cc"
 
 # Git
-alias gst="git status"
+alias gs='echo ""; echo "*********************************************"; echo -e "   DO NOT FORGET TO PULL BEFORE COMMITTING"; echo "*********************************************"; echo ""; git status'
 alias gcm="git commit -m"
 alias gl="git log --oneline --decorate --color"
 alias gh="git log --all --graph --decorate --oneline"
+alias stash="git stash -u"
+alias unstage="git restore --staged ."
+alias gb="git branch"
+alias gc="git checkout"
+alias diff="git diff"
+alias grh="git reset --hard HEAD"
 
 # Node
 alias nfresh="rm -rf node_modules/ package-lock.json && npm install"
-alias ns='npm start'
-alias start='npm start'
-alias nr='npm run'
-alias run='npm run'
-alias nis='npm i -S'
 
 # Docker
 alias dms5="docker run --name imysql5.7 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:5.7"
 alias dms8="docker run --name imysql8 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:8"
 alias drds="docker run -d --name iredis -p 6379:6379 redis"
+alias dc="docker-compose"
+alias dri="docker rmi"
+alias dr="docker rm -f"
+alias dimg="docker images"
+alias dps="docker ps -a"
+alias ds="docker stop"
+
 
 ####################################################################
 # Functions 
