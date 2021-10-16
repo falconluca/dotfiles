@@ -1,0 +1,64 @@
+# Shortcut
+alias reload="source ~/.bash_profile"
+alias _="sudo"
+alias rr="rm -rf"
+alias hosts="sudo $EDITOR /etc/hosts"
+alias quit="exit"
+alias l="ls -la"
+alias ..="cd .."
+alias ~="cd ~"
+alias cdev="cd ~/dev"
+alias cbin="cd ~/bin"
+alias path="echo -e ${PATH//:/\\n}"
+
+# Always enable colored `grep` output
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Git
+alias gs='git status'
+alias gcm="git commit -m"
+alias gl="git log --oneline --decorate --color"
+alias glh="git log --all --graph --decorate --oneline"
+alias gst="git stash -u"
+alias gust="git restore --staged ."
+alias gb="git branch"
+alias gc="git checkout"
+alias gdiff="git diff"
+alias grh="git reset --hard HEAD"
+
+# npm
+alias nreload="rm -rf node_modules/ package-lock.json && npm install"
+alias ni="npm install"
+alias cni="cnpm install"
+alias ns="kill -9 $(lsof -ti:3000,3001) && npm start"
+
+# Network
+alias pingg="ping www.google.com"
+alias pingb="ping www.baidu.com"
+
+# HTTP Proxy
+alias proxy-enable="export http_proxy='http://localhost:8010' && curl cip.cc"
+alias proxy-disable="unset http_proxy && curl cip.cc"
+alias proxy-status="curl cip.cc"
+
+# Docker
+alias dps="docker ps -a"
+alias di="docker images"
+alias drm="docker rm -f"
+alias drmi="docker rmi"
+alias dstop="docker stop"
+alias dc="docker-compose"
+alias dms5="docker run --name imysql5.7 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:5.7"
+alias dms8="docker run --name imysql8 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:8"
+alias drds="docker run -d --name iredis -p 6379:6379 redis"
+alias drds2="f(){ docker run -d --name $1 -p 6379:6379 redis;  unset -f f; }; f"
+
+# 开启 GoLang 1.17.x 泛型特性
+alias grg="go run -gcflags=-G=3"
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
