@@ -1,0 +1,15 @@
+# https://stackoverflow.com/questions/35281630/how-do-i-change-my-ps1-on-a-macbook-for-oh-my-zsh
+parse_git_branch() {
+     pr=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
+	 if [ -z ${pr} ]; then
+	 	echo ""
+		return;
+	 fi
+
+	 echo " git:${pr}"
+}
+
+emojis=("🚀" "🍻" "👙" "🍺")
+EMOJI=${emojis[$RANDOM % ${#emojis[@]} ]}
+
+export PS1="🧸 \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] ${EMOJI} $ "

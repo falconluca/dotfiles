@@ -1,8 +1,8 @@
 ####################################################################
 # Greetings
 ####################################################################
-cat $HOME/banner.txt
-python3 $HOME/idioms.py
+cat ~/banner.txt
+python3 ~/idioms.py
 echo -e "\n"
 
 
@@ -19,7 +19,7 @@ fi
 PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export PATH
 export LANG="en_US.UTF-8"
-export DEV="$HOME/dev"
+export DEV="~/dev"
 
 # Configure for git
 export PATH=/usr/local/libexec/git-core:$PATH
@@ -98,6 +98,4 @@ export GOSUMDB=off
 ####################################################################
 #cd $DEV
 
-emojis=("🚀" "🍻" "👙" "🍺")
-EMOJI=${emojis[$RANDOM % ${#emojis[@]} ]}
-export PS1="["🚀"\u@vps${EMOJI} \W]\$ "
+source ~/.bash_prompt
