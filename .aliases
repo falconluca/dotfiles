@@ -1,3 +1,9 @@
+# NAVIGATION
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
 # Shortcut
 alias reload="source ~/.bash_profile"
 alias _="sudo"
