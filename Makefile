@@ -1,3 +1,4 @@
+.PHONY: ln
 ln:
     ## MacOS
     ln -s ~/.dotfiles/.zshrc ~/.zshrc

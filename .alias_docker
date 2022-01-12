@@ -1,0 +1,14 @@
+#!/bin/bash
+
+alias dps="docker ps -a"
+alias di="docker images"
+alias dbuild='docker build -t'
+alias drm="docker rm -f"
+alias drmi="docker rmi"
+alias dstop="docker stop"
+alias dc="docker-compose"
+
+alias dms5="docker run --name imysql5.7 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:5.7"
+alias dms8="docker run --name imysql8 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:8"
+alias drds="docker run -d --name iredis -p 6379:6379 redis"
+alias drds2="f(){ docker run -d --name $1 -p 6379:6379 redis;  unset -f f; }; f"
