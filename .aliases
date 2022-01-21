@@ -1,3 +1,10 @@
+alias mkdir='mkdir -v'
+alias mv='mv -v'
+alias cp='cp -v'
+alias rm='rm -v'
+alias rmnm='rm -rf node_modules > /dev/null'
+alias ln='ln -v'
+
 # HELP
 alias cs="f(){ curl "cheat.sh/$1"; unset -f f; }; f"
 
@@ -57,3 +64,6 @@ alias rds-install='brew update; brew install redis'
 alias rds-server='redis-server /usr/local/etc/redis.conf'
 alias rds-cli='redis-cli'
 alias rds-ping='redis-cli ping'
+
+alias pip='pip3'
+alias python='python3'

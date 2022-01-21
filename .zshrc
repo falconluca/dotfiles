@@ -1,14 +1,11 @@
 PATH=$PATH:/Users/luca/mongodb/mongodb-macos-x86_64-5.0.5/bin
 alias mongo-up='mongod --dbpath /usr/local/var/mongodb'
 
-BWG_VPS='root@138.128.221.63'
-
 # Greetings 
 #source ~/banner.sh
 echo
 cal
 python3 $HOME/idioms.py
-
 
 # Recommendation
 echo
@@ -35,8 +32,8 @@ DISABLE_UPDATE_PROMPT="true"
 
 # ZSH THEMES
 #ZSH_THEME="agnoster"
-# ZSH_THEME="awesomepanda"
- ZSH_THEME="Avit"
+#ZSH_THEME="awesomepanda"
+#ZSH_THEME="Avit"
 
 # Zsh Plugins 
 plugins=(
