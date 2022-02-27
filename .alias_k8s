@@ -1,21 +1,23 @@
 #!/bin/bash
 
-# For local dev purpose
 alias mk='minikube'
 alias mks='minikube start --driver=docker --force'
 alias mks2='minikube start --driver=docker --force --node=2'
+alias mkssh='minikube ssh'
 
-# Document
+# https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
 alias k='kubectl' # k --help
 alias kar='kubectl api-resources'
 alias ke='kubectl explain' # ke po.metadata
-
 alias ka='kubectl apply -f'
 alias kdelf='kubectl delete -f'
 alias kg='kubectl get'
 alias kd='kubectl describe'
 alias kdel='kubectl delete'
-alias klogsf='kubectl logs' # klogs -f --tail=100 kubia-po -c kubia-container
-
+alias kl='kubectl logs' # klogs -f --tail=100 kubia-po -c kubia-container
+alias klf='kubectl logs -f --tail=100'
 alias kccm='kubectl create cm' # kccm app-config --from-literal=HTTP_PROXY=http://localhost:8010
 alias kpf='kubectl port-forward' # kpf fortune 8080:80
+
+# alpine镜像默认的软件仓库在国外, 有时 `docker build` 的时候安装软件包会很慢, 可以改用国内的软件包镜像
+alias alpine-ustc='RUN sed -i 's!http://dl-cdn.alpinelinux.org/!https://mirrors.ustc.edu.cn/!g' /etc/apk/repositories'

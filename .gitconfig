@@ -1,6 +1,6 @@
 [user]
 	name = Luca
-	email = shaohsiung@163.com
+	email = yangshaoxiong5545@gmail.com
 [core]
 	excludesfile = /Users/luca/.gitignore_global
 	autocrlf = input
@@ -12,6 +12,3 @@
 	trustExitCode = true
 [commit]
 	template = /Users/luca/.stCommitMsg
-[url "https://github.com.cnpmjs.org/"]
-	installOf = https://github.com/
-	insteadOf = https://github.com/

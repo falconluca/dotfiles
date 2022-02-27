@@ -1,0 +1,33 @@
+#!/bin/bash
+
+alias cdnet='cd /etc/sysconfig/network-scripts/'
+
+# firewall daemon
+function firewalld() {
+  case $1 in
+    status)
+      systemctl status firewalld.service
+      ;;
+  
+    start)
+      systemctl start firewalld.service
+      ;;
+  
+    stop)
+      systemctl stop firewalld.service
+      ;;
+    
+    disable)
+      systemctl disable firewalld.service
+      ;;
+  
+    enable)
+      systemctl enable firewalld.service
+      ;;
+  
+    *)
+      #printf "unknown args: %s\n" "$@"
+      printf "unknown args: %s\n" "$*"
+      ;;
+  esac
+}

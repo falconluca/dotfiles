@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# TODO: chose by arch
+alias jdk8="export JAVA_HOME=/Users/luca/Library/Java/JavaVirtualMachines/adopt-openjdk-1.8.0_292/Contents/Home"
+alias jdk11="export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home"
+
+JENKINS_VERSION=2.319.3
+JENKINS_LOCATION="${HOME}/bin/jenkins-${JENKINS_VERSION}-LTS.war"
+
+function jenkins() {
+  case $1 in
+    start)
+      if [ ! -f "${JENKINS_LOCATION}" ]; then
+        echo "${JENKINS_LOCATION} not be found locally, download through wget...}"
+        #wget -P "${JENKINS_LOCATION}" https://get.jenkins.io/war-stable/${JENKINS_VERSION}/jenkins.war
+      fi
+
+      echo "jenkins jdk uses version 8 by default"
+      # TODO: enable jdk8
+
+      local HTTP_PORT=$2
+      [ -z "${HTTP_PORT}" ] && HTTP_PORT=8080 && echo "jenkins http port listen at 8080 by default "
+
+      echo "java -jar ${HTTP_PORT}"
+      #java -jar jenkins-${JENKINS_VERSION}-LTS.war --httpPort="${HTTP_PORT}"
+      ;;
+
+    *)
+      printf "jenkins unknown args: %s\n" "$*"
+      ;;
+  esac
+}
+
+# 查找本机的内网IP
+alias inetip="ifconfig | grep 'inet'"
+
+alias nacos-namingserv-standalone='jdk8 && sh /Users/luca/bin/nacos-register-standalone/bin/startup.sh -m standalone && tail -f /Users/luca/bin/nacos-register-standalone/logs/start.out'
+alias nacos-namingserv-cluster=''
+
+alias nacos-configserv-standalone=''
+alias nacos-configserv-cluster=''
+
+alias kafka-standalone=''
+
+alias rabbitmq-standalone=''
+
+alias elasticsearch-standalone=''
+
+# TODO: find java 

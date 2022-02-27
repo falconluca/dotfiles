@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# 从阿里云的容器服务中获取专属ID
+REGISTRY_MIRROR_ID=
+
+function aliyun-docker-mirror() {
+  sudo mkdir -p /etc/docker
+  sudo tee /etc/docker/daemon.json <<-EOF
+{
+  "registry-mirrors": ["https://${REGISTRY_MIRROR_ID}.mirror.aliyuncs.com"]
+}
+EOF
+  sudo systemctl daemon-reload
+  sudo systemctl restart docker
+}
+
+#现代编程中，应该摒弃继承，转而使用组合，手段再丰富点，辅以 Trait、Mixin 等方式。

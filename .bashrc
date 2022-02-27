@@ -61,7 +61,6 @@ alias l='ls'
 alias ll='ls -al'
 alias e?='echo $?'
 alias vi='vim'
-# TODO 使用函数扩展ls命令
 alias ll='ls -alh --color=auto | sort'
 
 ####################################################################

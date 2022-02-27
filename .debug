@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# easegress
+export PATH=${PATH}:/Users/luca/dev-opensource/easegress/bin/
+
+# TODO: strace, gdb, cc, gcc
