@@ -21,3 +21,10 @@ alias kpf='kubectl port-forward' # kpf fortune 8080:80
 
 # alpine镜像默认的软件仓库在国外, 有时 `docker build` 的时候安装软件包会很慢, 可以改用国内的软件包镜像
 alias alpine-ustc='RUN sed -i 's!http://dl-cdn.alpinelinux.org/!https://mirrors.ustc.edu.cn/!g' /etc/apk/repositories'
+
+# Explore k8s API
+alias kube1="kubectl get --raw / | jq ."
+alias kube2="kubectl get --raw /api | jq ."
+alias kube3="kubectl get --raw /api/v1 | jq ."
+alias kube4="kubectl get --raw /api/v1/pods | jq ."
+alias kube4="kubectl get --raw /apis/apps/v1/deployments | jq ."

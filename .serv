@@ -1,3 +1,13 @@
+function chrome() {
+    open -a "Google Chrome" $1
+}
+export -f chrome
+
+function firefox() {
+    open -a "firefox" $1
+}
+export -f firefox
+
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_321.jdk/Contents/Home"
 export HBASE_HOME=""
 
@@ -7,10 +17,10 @@ hbase-dashboard='firefox 127.0.0.1:16010'
 
 # RabbitMQ
 # https://codeburst.io/get-started-with-rabbitmq-on-docker-4428d7f6e46b
-rabbitmq-dashboard='firefox localhost:15672'
+rabbitmq-dashboard='firefox http://127.0.0.1:15672'
 
 # Kibana
-kibana-dashboard='firefox localhost:5601'
+kibana-dashboard='firefox http://127.0.0.1:5601'
 
 
 # MySQL
@@ -25,4 +35,4 @@ alias damqp="docker run --rm -d --hostname my-rabbit -p 15672:15672 -p 5672:5672
 alias dkakfa=""
 alias des=""
 
-alias dlogstash='sudo ./Users/cds-dn378/bin/logstash-7.1.0/bin/logstash -f logstash.conf'
+alias dlogstash='sudo ~/bin/logstash-7.1.0/bin/logstash -f logstash.conf'

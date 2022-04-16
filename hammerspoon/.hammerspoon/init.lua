@@ -1,6 +1,5 @@
 -- https://www.hammerspoon.org/
 
--- 使用【Option+1】在不同屏幕之间移动鼠标
 hs.hotkey.bind({'option'}, '1', function()
     local screen = hs.mouse.getCurrentScreen()
     local nextScreen = screen:next()
@@ -9,7 +8,6 @@ hs.hotkey.bind({'option'}, '1', function()
     hs.mouse.absolutePosition(center)
 end)
   
--- 使用【Option+2】在不同屏幕之间移动窗口
 hs.hotkey.bind({'option'}, '2', function()
     -- get the focused window
     local win = hs.window.focusedWindow()
