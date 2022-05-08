@@ -1,6 +1,12 @@
 #!/bin/bash
 
+# 查找本机的内网IP
+alias inetip="ifconfig | grep 'inet'"
 alias cdnet='cd /etc/sysconfig/network-scripts/'
+
+alias upt='uptime'
+# 查看系统有几个CPU
+alias cpus="grep 'model name' /proc/cpuinfo | wc -l"
 
 # firewall daemon
 function firewalld() {
@@ -8,23 +14,23 @@ function firewalld() {
     status)
       systemctl status firewalld.service
       ;;
-  
+
     start)
       systemctl start firewalld.service
       ;;
-  
+
     stop)
       systemctl stop firewalld.service
       ;;
-    
+
     disable)
       systemctl disable firewalld.service
       ;;
-  
+
     enable)
       systemctl enable firewalld.service
       ;;
-  
+
     *)
       #printf "unknown args: %s\n" "$@"
       printf "unknown args: %s\n" "$*"

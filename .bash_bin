@@ -1,0 +1,199 @@
+#!/bin/bash
+
+##############
+# MySQL
+##############
+alias dmysql5="docker run --name imysql5.7 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:5.7"
+alias dmysql8="docker run --name imysql8 -e MYSQL_ROOT_PASSWORD=root --platform linux/x86_64 -p 3306:3306 -d mysql:8"
+alias bmysql="brew services start mysql" # pwd:12345678 https://stackoverflow.com/a/62461889
+alias bmysqlstop="brew services stop mysql"
+alias bmysqlrestart="brew services restart mysql"
+alias binmysql=""
+
+
+##############
+# Redis
+##############
+alias dredis="docker run -d --name iredis -p 6379:6379 redis"
+function dredis2() {
+    docker run -d --name $1 -p 6379:6379 redis;
+}
+export -f dredis2
+alias brew-redis=""
+alias brew-redis-stop=""
+alias bin-redis=""
+#alias rds-install='brew update; brew install redis'
+#alias rds-server='redis-server /usr/local/etc/redis.conf'
+alias rdcli="redis-cli"
+alias rdclip="redis-cli ping"
+
+
+##############
+# Nginx
+##############
+alias ng="nginx"
+alias ngt="nginx -t"
+
+
+##############
+# RabbitMQ
+##############
+alias damqp="docker run --rm -d --hostname my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management"
+alias amqp-dashboard='firefox http://127.0.0.1:15672'
+
+
+##############
+# Kafka
+##############
+alias dkakfa=""
+
+function kafka-start() {
+    local PREV_ZK_PID=$(lsof -t -i :2181 -s TCP:LISTEN)
+    if [ -n "${PREV_ZK_PID}" ]; then
+        echo -e "\n==> Zookeeper server already in port 2181, pid: ${PREV_ZK_PID}"
+    else
+        echo -e "\n==> Start the ZooKeeper service..."
+        ~/bin/kafka_2.13-3.1.0/bin/zookeeper-server-start.sh ~/bin/kafka_2.13-3.1.0/config/zookeeper.properties > /dev/null 2>&1 &
+        sleep 1
+        local ZK_PID=$(echo "$!")
+        echo "==> ZooKeeper server Started! PID: ${ZK_PID}"
+    fi
+
+    local PREV_KAFKA_BROKER_PID=$(lsof -t -i :9092 -s TCP:LISTEN)
+    if [ -n "${PREV_KAFKA_BROKER_PID}" ]; then
+        echo -e "\n==> kafka broker already in port 9092, pid: ${PREV_KAFKA_BROKER_PID}"
+    else
+        echo -e "\n==> Start the Kafka broker service..."
+        ~/bin/kafka_2.13-3.1.0/bin/kafka-server-start.sh ~/bin/kafka_2.13-3.1.0/config/server.properties > /dev/null 2>&1 &
+        sleep 1
+        local KAFKA_BROKER_PID=$(echo "$!")
+        echo "==> Kafka broker  Started! PID: ${KAFKA_BROKER_PID}"
+    fi
+}
+export -f kafka-start
+
+function kafka-stop() {
+    local ZK_PID=$(lsof -t -i :2181 -s TCP:LISTEN)
+    if [ -z "${ZK_PID}" ]; then
+        echo -e "\n==> Zookeeper server not found in port 2181"
+    else
+        kill -9 "${ZK_PID}" && sleep 1
+        echo -e "\n==> Zookeeper server stoped"
+    fi
+
+    local KAFKA_BRKOER_PID=$(lsof -t -i :9092 -s TCP:LISTEN)
+    if [ -z "${KAFKA_BRKOER_PID}" ]; then
+        echo -e "\n==> Kafka broker not found in port 9092"
+    else
+        kill -9 "${KAFKA_BRKOER_PID}" && sleep 1
+        echo -e "\n==> Kafka broker stoped"
+    fi
+
+    echo -e "\n==> Release zookeeper server and kafka broker's cached files"
+    rm -rf /tmp/kafka-logs /tmp/zookeeper > /dev/null
+    echo -e "\n==> done!"
+}
+export -f kafka-stop
+
+function kafka-create-topic() {
+    local TOPIC_NAME=
+    if [ -n "$1" ]; then
+        TOPIC_NAME=$1
+    else
+        echo -e "\n==> TOPIC NAME not supplied, use 'quickstart-events' by default.\n"
+        TOPIC_NAME=quickstart-events
+    fi
+    ~/bin/kafka_2.13-3.1.0/bin/kafka-topics.sh --create --topic "${TOPIC_NAME}" --bootstrap-server localhost:9092
+    echo -e "\n==>TOPIC DESCRIPTION will be printed, Wait 1 seconds...\n" && sleep 1
+    ~/bin/kafka_2.13-3.1.0/bin/kafka-topics.sh --describe --topic "${TOPIC_NAME}" --bootstrap-server localhost:9092 | xargs -n 2
+}
+export -f kafka-create-topic
+
+function kafka-reader() {
+    if [ -z "$1" ]; then
+        echo -e "TOPIC NAME not supplied" && exit 1
+    fi
+    ~/bin/kafka_2.13-3.1.0/bin/kafka-console-consumer.sh --topic "$1" --from-beginning --bootstrap-server localhost:9092
+}
+export -f kafka-reader
+
+function kafka-writer() {
+    if [ -z "$1" ]; then
+        echo -e "TOPIC NAME not supplied" && exit 1
+    fi
+    ~/bin/kafka_2.13-3.1.0/bin/kafka-console-producer.sh --topic "$1" --bootstrap-server localhost:9092
+}
+export -f kafka-writer
+
+
+##############
+# Elasticsearch
+##############
+alias des=""
+alias dlogstash='sudo ~/bin/logstash-7.1.0/bin/logstash -f logstash.conf'
+
+
+##############
+# Mongo
+##############
+#PATH=$PATH:/Users/luca/mongodb/mongodb-macos-x86_64-5.0.5/bin
+#alias mongo-up='mongod --dbpath /usr/local/var/mongodb'
+
+
+##############
+# HBase
+##############
+# TODO export HBASE_HOME=""
+alias hbase-start-slient='hbase'
+alias hbase-dashboard='firefox 127.0.0.1:16010'
+
+
+##############
+# Easegress
+##############
+alias easegress-server-start='~/bin/easegress/bin/easegress-server'
+alias easegress-server-reload='cd ~/bin/easegress && make && easegress-start'
+alias egctl-reload='cd ~/bin/easegress && make'
+alias egctl='~/bin/easegress/bin/egctl'
+alias easegress-mock-srvs='go run ~/bin/easegress/example/backend-service/mirror/mirror.go &'
+
+
+##############
+# Nacos
+##############
+alias nacos-namingserv-standalone='sh ~/bin/nacos-register-standalone/bin/startup.sh -m standalone && tail -f  ~/bin/nacos-register-standalone/logs/start.out'
+alias nacos-namingserv-cluster=''
+
+alias nacos-configserv-standalone=''
+alias nacos-configserv-cluster=''
+
+
+##############
+# Jenkins
+##############
+JENKINS_VERSION=2.319.3
+JENKINS_LOCATION="${HOME}/bin/jenkins-${JENKINS_VERSION}-LTS.war"
+
+function jenkins() {
+  case $1 in
+    start)
+      if [ ! -f "${JENKINS_LOCATION}" ]; then
+        echo "${JENKINS_LOCATION} not be found locally, download through wget...}"
+        #wget -P "${JENKINS_LOCATION}" https://get.jenkins.io/war-stable/${JENKINS_VERSION}/jenkins.war
+      fi
+
+      echo "jenkins jdk uses version 8 by default"
+      # TODO: enable jdk8
+
+      local HTTP_PORT=$2
+      [ -z "${HTTP_PORT}" ] && HTTP_PORT=8080 && echo "jenkins http port listen at 8080 by default "
+
+      echo "java -jar ${HTTP_PORT}"
+      #java -jar jenkins-${JENKINS_VERSION}-LTS.war --httpPort="${HTTP_PORT}"
+      ;;
+
+    *)
+      printf "jenkins unknown args: %s\n" "$*"
+      ;;
+  esac
+}

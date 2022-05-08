@@ -1,0 +1,199 @@
+#!/bin/bash
+
+# HELP
+function cs() {
+	curl "cheat.sh/$1"
+}
+export -f cs
+
+
+#############
+# Git
+#############
+alias gs="git status"
+alias gcm="git commit -m"
+alias gl="git log --oneline --decorate --color"
+alias glh="git log --all --graph --decorate --oneline"
+alias gst="git stash -u"
+alias gust="git restore --staged ."
+alias gb="git branch"
+alias gc="git checkout"
+alias gdiff="git diff"
+alias grh="git reset --hard HEAD"
+alias gaa='git add .'
+alias gaaa='git add -A'
+alias gi='git init'
+alias gp='git pull'
+alias gpsh='git push'
+alias gss='git status -s'
+
+
+#############
+# Node
+#############
+# TODO nvm
+# TODO nrm npm registry manager
+alias rmnm="rm -r ./node_modules/"
+alias ns='npm start'
+alias start='npm start'
+alias nr='npm run'
+alias run='npm run'
+alias ni="npm install"
+alias cni="cnpm install"
+alias nis='npm i -S'
+alias nreload="rm -rf node_modules/ package-lock.json && npm install"
+alias ns="kill -9 $(lsof -ti:3000,3001) && npm start"
+
+
+#############
+# Pip
+#############
+alias pip="pip3"
+alias python="python3"
+
+
+#############
+# Common
+#############
+alias mkdir='mkdir -v'
+alias mv='mv -v'
+alias cp='cp -v'
+alias rm='rm -v' # rm -i
+alias rmnm='rm -rf node_modules > /dev/null'
+alias ln='ln -v'
+
+# NAVIGATION
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# SHORTCUT
+alias reload="source ~/.bash_profile"
+alias _="sudo"
+alias rr="rm -rf"
+alias hosts="sudo $EDITOR /etc/hosts"
+alias quit="exit"
+alias l="ls -la"
+alias ~="cd ~"
+alias cdev="cd ~/dev"
+alias cbin="cd ~/bin"
+alias path="echo -e ${PATH//:/\\n}"
+
+alias e?='echo $?'
+alias vi='vim'
+
+# Always enable colored `grep` output
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias a='code .'
+alias reveal-md="reveal-md --theme night --highlight-theme hybrid --port 1337"
+alias o="open ." # Open the current directory in Finder
+
+function ccat() {
+    local style="monokai"
+    if [ $# -eq 0 ]; then
+        pygmentize -P style=$style -P tabsize=4 -f terminal256 -g
+    else
+        # shellcheck disable=SC2068
+        for NAME in $@; do
+            pygmentize -P style=$style -P tabsize=4 -f terminal256 -g "$NAME"
+        done
+    fi
+}
+
+function extract () {
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1    ;;
+            *.tar.gz)    tar xvzf $1    ;;
+            *.bz2)       bunzip2 $1     ;;
+            *.rar)       unrar x $1       ;;
+            *.gz)        gunzip $1      ;;
+            *.tar)       tar xvf $1     ;;
+            *.tbz2)      tar xvjf $1    ;;
+            *.tgz)       tar xvzf $1    ;;
+            *.zip)       unzip $1       ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1        ;;
+            *)           echo "don't know how to extract '$1'..." ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
+}
+
+# Create a new directory and enter it
+function mkd() {
+	mkdir -p "$@" && cd "$_";
+}
+
+function mkcd() {
+	mkdir $1 && cd $1
+}
+
+# `o` with no arguments opens the current directory,
+# otherwise opens the given location.
+function o() {
+	if [ $# -eq 0 ]; then
+		open .;
+	else
+		open "$@";
+	fi;
+}
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# Process
+alias pbyport='netstat -vanp tcp | grep'
+alias killbyport=''
+alias rmjobs='kill -9 $(jobs -p)'
+
+
+#############
+# Hexo
+#############
+alias hs="hexo clean && hexo g && hexo s"
+
+
+##################
+# HTTP Proxy
+##################
+alias vpn-enable="export http_proxy='http://localhost:8010' && curl cip.cc"
+alias vpn-disable="unset http_proxy && curl cip.cc"
+alias vpn-status="curl cip.cc"
+alias whereami='curl cip.cc'
+alias pubip='curl ifconfig.cc; echo'
+alias pingg="ping www.google.com"
+alias pingb="ping www.baidu.com"
+
+
+####################################################################
+# Color
+####################################################################
+bldgrn='\e[1;32m' # Bold Green
+bldpur='\e[1;35m' # Bold Purple
+txtrst='\e[0m'    # Text Reset
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+function red {
+    printf "${RED}$@${NC}\n"
+}
+
+function green {
+    printf "${GREEN}$@${NC}\n"
+}
+
+function yellow {
+    printf "${YELLOW}$@${NC}\n"
+}
+

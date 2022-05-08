@@ -1,7 +1,0 @@
-#!/bin/bash
-
-alias upt='uptime'
-# 查看系统有几个CPU
-alias cpus="grep 'model name' /proc/cpuinfo | wc -l"
-
-# TODO: nc

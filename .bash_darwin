@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# functions
+function chrome() {
+    open -a "Google Chrome" $1
+}
+export -f chrome
+
+function firefox() {
+    open -a "firefox" $1
+}
+export -f firefox
+
+# Java Env
+
+# Python Env
+
+# Go Env
+#export GOROOT=
+export GOPATH=~/go
+#export PATH=$GOPATH/bin:$PATH
+
+export GO111MODULE="on"
+export GOPROXY=https://goproxy.cn,direct
+export GOPRIVATE=
+export GOSUMDB=off
+
+alias grg="go run -gcflags=-G=3" # 开启 GoLang 1.17.x 泛型特性

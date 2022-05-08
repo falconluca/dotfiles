@@ -1,100 +1,51 @@
-####################################################################
-# Greetings
-####################################################################
-cat ~/banner.txt
-python3 ~/idioms.py
-echo -e "\n"
-
-
-####################################################################
-# Basic configuration
-####################################################################
-export PATH=$PATH:~/bin
-
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
 
-PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-export PATH
-export LANG="en_US.UTF-8"
-export DEV="~/dev"
 
-# Configure for git
-export PATH=/usr/local/libexec/git-core:$PATH
+#fortune | cowsay -f tux
 
 
-####################################################################
-# Color
-####################################################################
-bldgrn='\e[1;32m' # Bold Green
-bldpur='\e[1;35m' # Bold Purple
-txtrst='\e[0m'    # Text Reset
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
-
-function red {
-    printf "${RED}$@${NC}\n"
-}
-
-function green {
-    printf "${GREEN}$@${NC}\n"
-}
-
-function yellow {
-    printf "${YELLOW}$@${NC}\n"
-}
+export PATH=$PATH:$HOME/bin
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+#export EDITOR="code -w"
+export EDITOR='vim'
 
 
-####################################################################
-# Aliases
-####################################################################
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias vi='nvim'
-alias l='ls'
-alias ll='ls -al'
-alias e?='echo $?'
-alias vi='vim'
-alias ll='ls -alh --color=auto | sort'
-
-####################################################################
-# Functions
-####################################################################
-function ccat() {
-    local style="monokai"
-    if [ $# -eq 0 ]; then
-        pygmentize -P style=$style -P tabsize=4 -f terminal256 -g
-    else
-        for NAME in $@; do
-            pygmentize -P style=$style -P tabsize=4 -f terminal256 -g "$NAME"
-        done
-    fi
-}
+source ~/.nvm/nvm.sh
+nvm use stable
 
 
-####################################################################
-# Go envs
-####################################################################
-export GOVERSION=go1.16.2
-export GO_INSTALL_DIR=$HOME/go
-export GOROOT=$GO_INSTALL_DIR/$GOVERSION
-export GOPATH=$DEV/golang
-export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
-export GO111MODULE="on"
+shopt -s autocd
+shopt -s histappend
+
+
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
+
+export GOPATH=$HOME/go
 export GOPROXY=https://goproxy.cn,direct
-export GOPRIVATE=
+export GOPRIVATE=*.cds8.cn
+export GO111MODULE="on"
 export GOSUMDB=off
+#export GOOS=darwin
+#export GOARCH=arm64
+export PATH=$GOPATH/bin:$PATH
 
 
-####################################################################
-# Initial 
-####################################################################
-#cd $DEV
-
+source ~/.bash_alias
+source ~/.bash_bin
+source ~/.bash_k8s
+source ~/.bash_darwin
 source ~/.bash_prompt
+
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+#brew update

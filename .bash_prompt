@@ -1,15 +1,37 @@
-# https://stackoverflow.com/questions/35281630/how-do-i-change-my-ps1-on-a-macbook-for-oh-my-zsh
-parse_git_branch() {
-     pr=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
-	 if [ -z ${pr} ]; then
-	 	echo ""
-		return;
-	 fi
+#!bin/bash
 
-	 echo " git:${pr}"
+HOST_NAME=Luca
+
+# TODO https://unix.stackexchange.com/questions/2897/clicolor-and-ls-colors-in-bash
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+txtred='\e[0;31m' # Red
+txtgrn='\e[0;32m' # Green
+bldgrn='\e[1;32m' # Bold Green
+bldpur='\e[1;35m' # Bold Purple
+txtrst='\e[0m'    # Text Reset
+
+parse_git_branch() {
+    pr=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
+    if [ -z ${pr} ]; then
+        echo ""
+		return;
+    fi
+    echo " git:${pr}"
 }
 
-emojis=("🚀" "🍻" "👙" "🍺")
+print_before_the_prompt () {
+    dir=$PWD
+    home=$HOME
+    dir=${dir/"$HOME"/"~"}
+    printf "\n $txtred%s: $bldpur%s $txtgrn%s\n$txtrst" "$HOST_NAME" "$dir" "$(vcprompt)"
+}
+
+emojis=("🚀" "😈" "🍻" "👙" "🍺")
 EMOJI=${emojis[$RANDOM % ${#emojis[@]} ]}
 
-export PS1="🧸 \W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] ${EMOJI} $ "
+PROMPT_COMMAND=print_before_the_prompt
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+PS1="$EMOJI => "
+
