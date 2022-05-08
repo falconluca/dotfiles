@@ -39,7 +39,7 @@ alias ngt="nginx -t"
 # RabbitMQ
 ##############
 alias damqp="docker run --rm -d --hostname my-rabbit -p 15672:15672 -p 5672:5672 rabbitmq:3-management"
-alias amqp-dashboard='firefox http://127.0.0.1:15672'
+alias amqp-dash='firefox http://127.0.0.1:15672'
 
 
 ##############
@@ -129,8 +129,27 @@ export -f kafka-writer
 ##############
 # Elasticsearch
 ##############
-alias des=""
-alias dlogstash='sudo ~/bin/logstash-7.1.0/bin/logstash -f logstash.conf'
+alias ek="docker-compose -f ~/dotfiles/docker-compose/elasticsearch7/docker-compose.yaml up -d"
+alias ek-stop="docker-compose -f ~/dotfiles/docker-compose/elasticsearch7/docker-compose.yaml down"
+alias es="chrome http://127.0.0.1:9200"
+alias kibana-dash="chrome http://127.0.0.1:5601"
+alias e-healthz='curl -X GET http://127.0.0.1:9200/_cat/health?v'
+alias e-nodes='curl -X GET http://127.0.0.1:9200/_cat/nodes?v'
+alias e-indices='curl -X GET http://127.0.0.1:9200/_cat/indices?v'
+alias logstash='sudo ~/bin/logstash-7.1.0/bin/logstash -f logstash.conf'
+
+function e-import-json() {
+    local TOPIC_NAME=
+    if [ -z "$1" ]; then
+        echo -e "\n==> JSON file not supplied, try '~/dotfiles/docker-compose/elasticsearch7/accounts.json'.\n"
+        exit 1
+    fi
+
+    curl -H "Content-Type:application/json" \
+        -X POST "localhost:9200/bank/_bulk?pretty&refresh" \
+        --data-binary "@accounts.json"
+}
+export -f e-import-json
 
 
 ##############
@@ -143,9 +162,10 @@ alias dlogstash='sudo ~/bin/logstash-7.1.0/bin/logstash -f logstash.conf'
 ##############
 # HBase
 ##############
-# TODO export HBASE_HOME=""
-alias hbase-start-slient='hbase'
-alias hbase-dashboard='firefox 127.0.0.1:16010'
+alias hbase='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) && ~/bin/hbase-2.4.11/bin/start-hbase.sh'
+alias hbase-stop='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) && ~/bin/hbase-2.4.11/bin/stop-hbase.sh'
+alias hbase-shell='export JAVA_HOME=$(/usr/libexec/java_home -v 1.8) && ~/bin/hbase-2.4.11/bin/hbase shell'
+alias hbase-dash='firefox http://127.0.0.1:16010'
 
 
 ##############

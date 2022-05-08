@@ -1,6 +1,6 @@
 -- https://www.hammerspoon.org/
 
-hs.hotkey.bind({'option'}, '1', function()
+hs.hotkey.bind({'option', 'cmd'}, '1', function()
     local screen = hs.mouse.getCurrentScreen()
     local nextScreen = screen:next()
     local rect = nextScreen:fullFrame()
@@ -8,7 +8,7 @@ hs.hotkey.bind({'option'}, '1', function()
     hs.mouse.absolutePosition(center)
 end)
   
-hs.hotkey.bind({'option'}, '2', function()
+hs.hotkey.bind({'option', 'cmd'}, '2', function()
     -- get the focused window
     local win = hs.window.focusedWindow()
     -- get the screen where the focused window is displayed, a.k.a. current screen
