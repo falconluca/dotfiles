@@ -28,18 +28,19 @@ alias gpsh='git push'
 alias gss='git status -s'
 
 function gitcr() {
-  if [ -z "$1" ]; then
-      echo -e "\n==> Repo location not supplied\n"
-      exit 1
-  fi
-
-  for i in {1..10}; do
-     timeout 5 git clone "$1"
-     if [ $? -eq 0 ]; then
-        break
-     fi
-     echo -e "\n==> timeout... ${i} retry"
-  done
+    if [ -z "$1" ]; then
+        echo -e "\n==> Repo location not supplied\n"
+        exit 1
+    fi
+    
+    for i in {1..10}; do
+        # brew install coreutils
+        timeout 5 git clone "$1"
+        if [ $? -eq 0 ]; then
+            break
+        fi
+        echo -e "\n==> timeout... ${i} retry"
+    done
 }
 export -f gitcr
 
@@ -66,6 +67,7 @@ alias ns="kill -9 $(lsof -ti:3000,3001) && npm start"
 #############
 alias pip="pip3"
 alias python="python3"
+alias pipf="pip3 freeze > requirements.txt"
 
 
 #############
@@ -77,6 +79,8 @@ alias cp='cp -v'
 alias rm='rm -v' # rm -i
 alias rmnm='rm -rf node_modules > /dev/null'
 alias ln='ln -v'
+alias type='type -a' # type -a ls
+
 
 # NAVIGATION
 alias ..="cd .."
@@ -91,15 +95,20 @@ alias rr="rm -rf"
 alias hosts="sudo $EDITOR /etc/hosts"
 alias quit="exit"
 alias l="ls -la"
-alias ~="cd ~"
-alias cdev="cd ~/dev"
-alias cbin="cd ~/bin"
 alias path="echo -e ${PATH//:/\\n}"
+
+alias ~="cd ~"
 alias cddev="cd ~/dev"
-alias cddot="cd ~/dotfiles"
 alias cdbin="cd ~/bin"
+
+alias cddot="cd ~/dotfiles"
+#alias checkdot="~/dotfiles/check.sh"
+
 alias cdnote="cd ~/confluence"
 alias cdblog="cd ~/shxo"
+
+alias blog="cd ~/shxo && hexo clean && hexo g && hexo s"
+alias note="cd ~/confluence && npm run docs:dev"
 
 alias e?='echo $?'
 alias vi='vim'

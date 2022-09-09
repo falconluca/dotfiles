@@ -30,7 +30,7 @@ print_before_the_prompt () {
 
 # TODO git-dirty
 
-emojis=("🚀" "😈" "🍻" "👙" "🍺")
+emojis=("🚀" "😈" "🍻" "🍺")
 EMOJI=${emojis[$RANDOM % ${#emojis[@]} ]}
 
 PROMPT_COMMAND=print_before_the_prompt

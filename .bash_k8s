@@ -32,7 +32,7 @@ alias k='kubectl' # k --help
 alias kar='kubectl api-resources'
 alias ke='kubectl explain' # ke po.metadata
 alias ka='kubectl apply -f'
-alias kdelf='kubectl delete -f'
+alias kdel='kubectl delete -f'
 alias kg='kubectl get'
 alias kd='kubectl describe'
 alias kdel='kubectl delete'
@@ -40,6 +40,9 @@ alias kl='kubectl logs' # klogs -f --tail=100 kubia-po -c kubia-container
 alias klf='kubectl logs -f --tail=100'
 alias kccm='kubectl create cm' # kccm app-config --from-literal=HTTP_PROXY=http://localhost:8010
 alias kpf='kubectl port-forward' # kpf fortune 8080:80
+alias inp-start=""
+alias inp-stop="TODO"
+alias inp='kubectl get pods --namespace=ingress-nginx'
 
 # Explore k8s API
 alias kube1="kubectl get --raw / | jq ."
@@ -47,3 +50,9 @@ alias kube2="kubectl get --raw /api | jq ."
 alias kube3="kubectl get --raw /api/v1 | jq ."
 alias kube4="kubectl get --raw /api/v1/pods | jq ."
 alias kube4="kubectl get --raw /apis/apps/v1/deployments | jq ."
+
+
+##################
+# Helm
+##################
+# add helm chart for es
