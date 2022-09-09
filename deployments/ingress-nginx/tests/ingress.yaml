@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fruit-ing
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /apple
+            pathType: Prefix
+            backend:
+              service:
+                name: apple-svc
+                port:
+                  number: 8080
+          - path: /banana
+            pathType: Prefix
+            backend:
+              service:
+                name: banana-svc
+                port:
+                  number: 8080
+  ingressClassName: nginx
