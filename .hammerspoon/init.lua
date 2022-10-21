@@ -1,5 +1,6 @@
 -- https://www.hammerspoon.org/
 
+-- 使用【Opt+CMD+1】在不同屏幕之间移动鼠标
 hs.hotkey.bind({'option', 'cmd'}, '1', function()
     local screen = hs.mouse.getCurrentScreen()
     local nextScreen = screen:next()
@@ -7,7 +8,8 @@ hs.hotkey.bind({'option', 'cmd'}, '1', function()
     local center = hs.geometry.rectMidPoint(rect)
     hs.mouse.absolutePosition(center)
 end)
-
+  
+-- 使用【Opt+CMD+2】在不同屏幕之间移动窗口
 hs.hotkey.bind({'option', 'cmd'}, '2', function()
     -- get the focused window
     local win = hs.window.focusedWindow()
@@ -38,7 +40,7 @@ hs.hotkey.bind({'control', 'option'}, 's', function()
     local ptr = hs.geometry.point(x, y)
     local center = rect:move(ptr)
     hs.mouse.absolutePosition(center)
-end)12
+end)
 
 -- 右上
 hs.hotkey.bind({'control', 'option'}, 'w', function()
